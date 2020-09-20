@@ -17,6 +17,6 @@
 sort-it.exe -i -a out.txt in.txt (для целых чисел по возрастанию) sort-it.exe -s out.txt in1.txt in2.txt in3.txt (для строк по возрастанию) sort-it.exe -d -s out.txt in1.txt in2.txt (для строк по убыванию)
 К решению должна прилагаться инструкция по запуску. В ней также можно отображать особенности реализации, не уточненные в задании.
 # Инструкция по сборке и запуску
-Для сборки проекта, нужно, находясь в папке проекта набрать команду javac src/com/company/Main.java
+Для сборки проекта, нужно, находясь в папке проекта sort набрать команду javac src/com/company/Main.java
 
 Для запуска java -cp src com.company.Main -d -s out.txt input.txt input2.txt
