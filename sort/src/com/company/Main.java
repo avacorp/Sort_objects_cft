@@ -1,11 +1,7 @@
 package com.company;
 
 
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +10,9 @@ public class Main
 {
 
     public static void main(String[] args) throws Exception {
-        for (int i=0; i < args.length; i++) {
+        /*for (int i=0; i < args.length; i++) {
             System.out.println(i + "=" + args[i]);
-        }
+        }*/
 
         String sortMode = getSortMode(args);
         String dataType = getDataType(args);
@@ -60,20 +56,33 @@ public class Main
     //считать строки из файла
     public static List<Object> readFromFile (String inputFileName, String dataType) throws  IOException {
         List<Object> arrayList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName))) {
-            String line;
-            if (dataType.equalsIgnoreCase("int")) {
-                while ((line = reader.readLine()) != null && isNumber(line)) {
-                    arrayList.add(Integer.parseInt(line));
+        File file = new File (inputFileName);
+        if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
+            try {
+                String line;
+                if (dataType.equalsIgnoreCase("int")) {
+                    while ((line = reader.readLine()) != null && isNumber(line)) {
+                        arrayList.add(Integer.parseInt(line));
+                    }
+                } else {
+                    while ((line = reader.readLine()) != null) {
+                        arrayList.add(line);
+                    }
                 }
-            } else {
-                while ((line = reader.readLine()) != null) {
-                    arrayList.add(line);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    reader.close();
+                    return arrayList;
+// пишем обработку исключения при закрытии потока чтения
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
         return arrayList;
     }
 
